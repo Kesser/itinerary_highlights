@@ -41,27 +41,27 @@ end
 class Location < ActiveRecord::Base
   attribute :name, :string
   has_one :photo
-  has_many :highlights, as: :entity
+  has_many :highlights, as: :entity, dependent: :destroy
  
 end
 
 class Activity < ActiveRecord::Base
   attribute :name, :string
   has_one :photo
-  has_many :highlights, as: :entity
+  has_many :highlights, as: :entity, dependent: :destroy
 end
 
 class Hotel < ActiveRecord::Base
   attribute :name, :string
   has_one :photo
-  has_many :highlights, as: :entity
+  has_many :highlights, as: :entity, dependent: :destroy
 end
 ```
 
 ### Each itinerary has many highlights.
 ```ruby
 class Itinerary < ActiveRecord::Base
-  has_many :highlights
+  has_many :highlights, dependent: :destroy
 end
 ```
 
