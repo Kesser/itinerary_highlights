@@ -9,12 +9,11 @@ class CreateHighlights < ActiveRecord::Migration[6.1]
       t.integer :entity_id
       t.string  :entity_type
       t.text    :description
+      t.references :Itinerary, null: false, foreign_key: true
       t.timestamps
     end
 
     add_index :highlights, [:entity_id, :entity_type]
-    add_index :highlights, :itinerary_id
-
   end
 end
 ```
