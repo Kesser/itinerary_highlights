@@ -64,5 +64,42 @@ class Itinerary < ActiveRecord::Base
 end
 ```
 
+## Controllers
+``` ruby
+class HighlightsController < ApplicationController
+  def create
+    @highlight = Highlight.create(highlight_params)
+    redirect_to itinerary_path(@highlight.itinerary)
+  end
+  
+  private
+  def highlight_params
+    params.require(:highlight).permit(:description, :entity_type, :entity_id, :itinerary_id)
+  end
+end
+```
 
+``` ruby
+class ItinerariesController < ApplicationController
+  
+  def show
+    @itinerary = Itinerary.find(params[:id])
+    @highlights = @itinerary.hightlights.last(3)
+  end
+  
+end
+```
 
+## View
+``` ruby
+<div class = "row">
+  <div class = "highlights">
+    <% @hightlights.each do |highlight| %>
+        <div class="highlight">
+            <%= image_tag highlight.entity.photo.url %>
+            <%= highlight.description %>
+        </div>
+    <%= end %>
+  </div>
+</div>
+```
